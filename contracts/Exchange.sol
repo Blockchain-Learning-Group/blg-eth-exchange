@@ -1,8 +1,9 @@
 pragma solidity ^0.4.15;
 
 import './token/ERC20.sol';
+import './utils/LoggingErrors.sol';
 
-contract Exchange {
+contract Exchange is LoggingErrors {
   /**
    * Data Structures
    */
@@ -12,6 +13,7 @@ contract Exchange {
     uint256 offerAmount;
     address wantToken;
     uint256 wantAmount;
+    bool filled;
   }
   /**
    * Storage
@@ -19,8 +21,9 @@ contract Exchange {
   /*
     The key for lookup is keccack256(wantToken, WantAmount, OfferToken, OfferAmount)
     Therefore quick lookup of matches for your order by inverting the submitted values.
+    Mapped to its index within the orderBook
    */
-  mapping(bytes32 => Order) public orderIdToOrder_;
+  mapping(bytes32 => uint) public activeOrderBookIndex_;
   Order[] public orderBook_;
 
   /**
@@ -43,14 +46,17 @@ contract Exchange {
     uint256 wantAmount
   );
 
-
+  /**
+   * @dev Constructor. Increment order book to enable 0 address as existence check.
+   * Therefore may check if an ids index is 0 to confirm it does not exist
+   */
+  function Exchange() {
+    orderBook_.length = 1;
+  }
 
   /**
    * External
    */
-
-
-event Debug(string u);
 
   /**
    * @dev Submit a new order to the exchange.  If you are offering ether you must
@@ -74,33 +80,43 @@ event Debug(string u);
     require(_offerAmount > 0);
     require(_wantAmount > 0);
 
+    // Save writes to new storage locations
+    bytes32 orderId;
+    uint orderIndex;
+
     // check if there is a matching order
     // Invert to tokens to see if a match exists
-    bytes32 matchingOrderId = keccak256(_wantToken, _wantAmount, _offerToken, _offerAmount);
+    orderId = keccak256(_wantToken, _wantAmount, _offerToken, _offerAmount);
+    orderIndex = activeOrderBookIndex_[orderId];
 
-    // Check attribute to confirm existence
-    if (orderIdToOrder_[matchingOrderId].offerAmount != 0) {
-      // There is a matching order, that now makes msg.sender the taker
-      executeOrder(matchingOrderId);
+    // Check for existence of matching order and that it is not filled
+    if (orderIndex != 0 && !orderBook_[orderIndex].filled) {
+      return executeOrder(orderId); // match! msg.sender == taker
 
-    // else add the order to the order book
+    // No match, look to add this order to the order book
     } else {
-      bytes32 orderId = keccak256(_offerToken, _offerAmount, _wantToken, _wantAmount);
+      orderId = keccak256(_offerToken, _offerAmount, _wantToken, _wantAmount);
 
-      // New order object created in memory
-      Order memory order = Order({
-        offerToken: _offerToken,
-        offerAmount: _offerAmount,
-        wantToken: _wantToken,
-        wantAmount: _wantAmount,
-        maker: msg.sender
-      });
+      // Confirm an exact copy of this order does not already exist
+      orderIndex = activeOrderBookIndex_[orderId];
+      if (orderIndex != 0 && !orderBook_[orderIndex].filled)
+        return error('Identical order is already active, Exchange.submitOrder()');
 
-      // Push new order object into order book array
-      orderBook_.push(order);
+      // else add the order to the order book
+      // Add to mapping for lookup by id
+      activeOrderBookIndex_[orderId] = orderBook_.length;
 
-      // Add to mapping for lookup by id for matching
-      orderIdToOrder_[orderId] = order;
+      // Push new order object into order book
+      orderBook_.push(
+        Order({
+          maker: msg.sender,
+          offerToken: _offerToken,
+          offerAmount: _offerAmount,
+          wantToken: _wantToken,
+          wantAmount: _wantAmount,
+          filled: false
+        })
+      );
 
       logOrderSubmitted(
         msg.sender,
@@ -109,9 +125,9 @@ event Debug(string u);
         _wantToken,
         _wantAmount
       );
-    }
 
-    return true;
+      return true;
+    }
   }
 
   /**
@@ -128,7 +144,8 @@ event Debug(string u);
     returns(bool)
   {
     // Load into mem to save gas on read operations
-    Order memory order = orderIdToOrder_[_orderId];
+    uint orderIndex = activeOrderBookIndex_[_orderId];
+    Order memory order = orderBook_[orderIndex];
 
     // Maker is offering ether
     if (order.offerToken == address(0)) {
@@ -144,6 +161,12 @@ event Debug(string u);
       // Tokens to taker
       ERC20(order.offerToken).transferFrom(order.maker, msg.sender, order.offerAmount);
     }
+
+    // Remove from mapping and set to filled
+    delete activeOrderBookIndex_[_orderId];
+
+    // Update to filled in storage
+    orderBook_[orderIndex].filled = true;
 
     logOrderExecuted(
       order.maker,
