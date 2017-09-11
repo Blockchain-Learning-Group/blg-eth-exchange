@@ -34,6 +34,7 @@
     <!-- Custom scripts for this template -->
     <script src="js/hub.min.js"></script>
     <script src="js/web3.min.js"></script>
+    <script src="js/initEther.js"></script> <!-- NOTE link this prior to home so web3 is loaded -->
     <script src="js/home.js"></script>
   </head>
 
@@ -98,36 +99,41 @@
 
     <section class="exchange bg-primary text-center" id="exchange">
       <div class="container">
-
         <div class="row" style="text-align: center;">
           <div class="col-md-12 mx-auto">
             <h2 class="section-heading">Place an Order!</h2>
             <p>Submit an order to the decentralized exchange.</p>
             <p>Supported pairings include: BLG / ETH.</p>
 
-            <form class="form-inline" id="submitOrder">
+            <form class="form-inline" id="submitOrderForm">
                 <label class="sr-only" for="inlineFormInputGroup">Offer Token</label>
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width:100%">
                   <div class="input-group-addon">Offer Token</div>
-                  <input type="text" class="form-control" id="offerToken" placeholder="ETH">
+                  <select class="form-control" id="offerToken">
+                    <option>BLG</option>
+                    <option>ETH</option>
+                  </select>
                 </div>
 
                 <label class="sr-only" for="inlineFormInputGroup">Offer Amount</label>
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width:100%">
                   <div class="input-group-addon">Offer Amount</div>
-                  <input type="text" class="form-control" id="offerAmount" placeholder="1">
+                  <input type="number" class="form-control" id="offerAmount" placeholder="100">
                 </div>
 
                 <label class="sr-only" for="inlineFormInputGroup">Want Token</label>
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width:100%">
                   <div class="input-group-addon">Want Token</div>
-                  <input type="text" class="form-control" id="wantToken" placeholder="BLG">
+                  <select class="form-control" id="wantToken">
+                    <option>ETH</option>
+                    <option>BLG</option>
+                  </select>
                 </div>
 
                 <label class="sr-only" for="inlineFormInputGroup">Want Amount</label>
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width:100%">
                   <div class="input-group-addon">Want Amount</div>
-                  <input type="text" class="form-control" id="wantAmount" placeholder="100">
+                  <input type="number" class="form-control" id="wantAmount" placeholder="1">
                 </div>
 
                 <button class="btn btn-primary" id="submitOrder" style="width:100%; margin-right: auto; margin-left: auto">Submit</button>
@@ -135,6 +141,61 @@
 
           </div>
         </div>
+      </div> <!-- Constainer -->
+    </section>
+
+    <section>
+      <div class="container">
+        <h1 style="text-align: center">Order Book</h1>
+
+        </br>
+
+        <h2>Active Orders</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Offer Token</th>
+              <th>Offer Amount</th>
+              <th>Want Token</th>
+              <th>Want Amount</th>
+              <th>Maker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ETH</td>
+              <td>1.5</td>
+              <td>BLG</td>
+              <td>105</td>
+              <td>0x0123456789012345678901234567890123456789</td>
+            </tr>
+          </tbody>
+        </table>
+
+        </br>
+
+        <!-- TODO -->
+        <!-- <h2>Filled Orders</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Offer Token</th>
+              <th>Offer Amount</th>
+              <th>Want Token</th>
+              <th>Want Amount</th>
+              <th>Maker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>john@example.com</td>
+              <td>Doe</td>
+              <td>john@example.com</td>
+            </tr>
+          </tbody>
+        </table> -->
       </div>
     </section>
 

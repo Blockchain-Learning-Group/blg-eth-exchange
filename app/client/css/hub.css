@@ -40,6 +40,8 @@ p {
 
 section {
   padding: 100px 0; }
+  section h1 {
+    font-size: 60px; }
   section h2 {
     font-size: 50px; }
 

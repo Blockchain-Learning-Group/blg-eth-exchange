@@ -55,6 +55,11 @@ contract Exchange is LoggingErrors {
   }
 
   /**
+   * @dev Fallback.  Enable This contract to be sent ether.
+   */
+  function () payable { }
+
+  /**
    * External
    */
 

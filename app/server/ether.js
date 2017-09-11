@@ -10,6 +10,16 @@ const hubArtifacts = require('../../build/contracts/StaticHub.json')
 const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
 const authenticatedAccount = web3.eth.accounts[1] // the account that has been added to the blg hub
 
+// NOTE For testing purposes to fund metamask account
+// console.log(web3.eth.sendTransaction(
+//   {
+//     from: web3.eth.accounts[0],
+//     to: '0x9Cb47a806AC793CE9739dd138Be3b9DEB16C14E4',
+//     value: 1*10**18
+//   }
+// ))
+
+
 // Hub
 const StaticHub = contract(hubArtifacts)
 StaticHub.setProvider(web3.currentProvider)

@@ -1,32 +1,7 @@
 // Default url to server running locally
 const apiURL = 'http://localhost:9191/'
-let defaultAccount
-let exchange
 
 $(document).ready(() => {
-  if (window.web3) {
-    const web3 = new Web3(window.web3.currentProvider)
-
-    // Load metamask accounts
-    web3.eth.getAccounts((err, accounts) => {
-      if (err) {
-        console.error(err)
-
-      } else {
-        defaultAccount = accounts[0]
-      }
-
-      console.log(defaultAccount)
-    })
-
-    // Create instance of the exchange
-
-  } else {
-    console.error('Please install Metamask to use this application!')
-  }
-
-
-
   // Add a resource to the blg hub
   $('#submitResource').click(e => {
     e.preventDefault()
@@ -68,14 +43,54 @@ $(document).ready(() => {
     }
   })
 
-  $('#submitOrder').click(() => {
-    console.log('submitting order')
+  $('#submitOrder').click(e => {
+    e.preventDefault()
+
     const wantToken = $('#wantToken').val()
     const wantAmount = $('#wantAmount').val()
     const offerToken = $('#offerToken').val()
     const offerAmount = $('#offerAmount').val()
 
-    console.log(wantToken, wantAmount, offerToken, offerAmount)
+    if (offerAmount <= 0 || wantAmount <= 0) {
+      alert('Invlaid input, amounts must be > 0.')
+      return
+
+    } else if (wantToken === offerToken) {
+      alert('Want and offer token may not be the same!')
+      return
+    }
+
+    // If offer token is eth send the ether to the exchange contract
+    if (offerToken === 'ETH') {
+      window.web3.eth.sendTransaction({
+        from: window.defaultAccount,
+        to: window.exchange.address,
+        value: offerAmount,
+        gas: 4e6
+      }, (error, tx) => {
+        if (error)
+          console.error(error)
+        else
+          console.log(tx)
+      })
+
+    // If the offer token is not eth and therefore some other ERC20 token approve
+    // the exchange to spend on sender's behalf
+    } else if (offerToken === 'BLG') {
+      window.blgToken.approve(
+        window.exchange.address,
+        offerAmount,
+        {
+          from: window.defaultAccount,
+          gas: 4e6
+        }, (error, tx) => {
+          if (error)
+            console.error(error)
+          else
+            console.log(tx)
+        }
+      )
+    }
   })
 })
 
