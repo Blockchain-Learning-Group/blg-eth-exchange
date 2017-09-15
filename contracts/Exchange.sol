@@ -21,10 +21,10 @@ contract Exchange is LoggingErrors {
   /*
     The key for lookup is keccack256(wantToken, WantAmount, OfferToken, OfferAmount)
     Therefore quick lookup of matches for your order by inverting the submitted values.
-    Mapped to its index within the orderBook
+    Id maps to actual order object.
    */
-  mapping(bytes32 => uint) public activeOrderBookIndex_;
-  Order[] public orderBook_;
+  mapping(bytes32 => Order) public orderBook_;
+  bytes32[] public orderIds_; // array of order hashes
 
   /**
    * Events
@@ -50,9 +50,9 @@ contract Exchange is LoggingErrors {
    * @dev Constructor. Increment order book to enable 0 address as existence check.
    * Therefore may check if an ids index is 0 to confirm it does not exist
    */
-  function Exchange() {
+  /*function Exchange() {
     orderBook_.length = 1;
-  }
+  }*/
 
   /**
    * @dev Fallback.  Enable This contract to be sent ether.
@@ -85,6 +85,14 @@ contract Exchange is LoggingErrors {
     require(_offerAmount > 0);
     require(_wantAmount > 0);
 
+    // Sufficent offer token balance
+    /* TODO map the ether to a specific user */
+    if (_offerToken == address(0))
+      require(this.balance >= _offerAmount);
+
+    else
+      require(ERC20(_offerToken).balanceOf(msg.sender) >= _offerAmount);
+
     // Save writes to new storage locations
     bytes32 orderId;
     uint orderIndex;
@@ -92,10 +100,9 @@ contract Exchange is LoggingErrors {
     // check if there is a matching order
     // Invert to tokens to see if a match exists
     orderId = keccak256(_wantToken, _wantAmount, _offerToken, _offerAmount);
-    orderIndex = activeOrderBookIndex_[orderId];
 
     // Check for existence of matching order and that it is not filled
-    if (orderIndex != 0 && !orderBook_[orderIndex].filled) {
+    if (orderBook_[orderId].wantAmount != 0 && !orderBook_[orderId].filled) {
       return executeOrder(orderId); // match! msg.sender == taker
 
     // No match, look to add this order to the order book
@@ -103,25 +110,22 @@ contract Exchange is LoggingErrors {
       orderId = keccak256(_offerToken, _offerAmount, _wantToken, _wantAmount);
 
       // Confirm an exact copy of this order does not already exist
-      orderIndex = activeOrderBookIndex_[orderId];
-      if (orderIndex != 0 && !orderBook_[orderIndex].filled)
+      if (orderBook_[orderId].wantAmount != 0 && !orderBook_[orderId].filled)
         return error('Identical order is already active, Exchange.submitOrder()');
 
       // else add the order to the order book
-      // Add to mapping for lookup by id
-      activeOrderBookIndex_[orderId] = orderBook_.length;
+      // Add id for DApp to retrieve book
+      orderIds_.push(orderId);
 
       // Push new order object into order book
-      orderBook_.push(
-        Order({
-          maker: msg.sender,
-          offerToken: _offerToken,
-          offerAmount: _offerAmount,
-          wantToken: _wantToken,
-          wantAmount: _wantAmount,
-          filled: false
-        })
-      );
+      orderBook_[orderId] = Order({
+        maker: msg.sender,
+        offerToken: _offerToken,
+        offerAmount: _offerAmount,
+        wantToken: _wantToken,
+        wantAmount: _wantAmount,
+        filled: false
+      });
 
       logOrderSubmitted(
         msg.sender,
@@ -138,6 +142,7 @@ contract Exchange is LoggingErrors {
   /**
    * Public
    */
+
   /**
    * @dev Execute an order that has been matched.
    * @param _orderId The id of the matched order.
@@ -149,8 +154,7 @@ contract Exchange is LoggingErrors {
     returns(bool)
   {
     // Load into mem to save gas on read operations
-    uint orderIndex = activeOrderBookIndex_[_orderId];
-    Order memory order = orderBook_[orderIndex];
+    Order memory order = orderBook_[_orderId];
 
     // Maker is offering ether
     if (order.offerToken == address(0)) {
@@ -167,11 +171,8 @@ contract Exchange is LoggingErrors {
       ERC20(order.offerToken).transferFrom(order.maker, msg.sender, order.offerAmount);
     }
 
-    // Remove from mapping and set to filled
-    delete activeOrderBookIndex_[_orderId];
-
     // Update to filled in storage
-    orderBook_[orderIndex].filled = true;
+    orderBook_[_orderId].filled = true;
 
     logOrderExecuted(
       order.maker,
@@ -183,5 +184,21 @@ contract Exchange is LoggingErrors {
     );
 
     return true;
+  }
+
+  /**
+   * Constants
+   */
+
+  /**
+   * Get the order book array.
+   * @return The order book array.
+   */
+  function getOrderBookIds()
+    external
+    constant
+    returns(bytes32[])
+  {
+    return orderIds_;
   }
 }
