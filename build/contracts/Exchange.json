@@ -206,6 +206,94 @@
   ],
   "unlinked_binary": "0x6060604052341561000f57600080fd5b5b610a598061001f6000396000f300606060405236156100515763ffffffff60e060020a600035041663049b76c481146100555780631be091301461007f5780633f5f18bc146100e6578063708a02c91461010e5780638c946c2614610169575b5b5b005b341561006057600080fd5b61006b60043561019e565b604051901515815260200160405180910390f35b341561008a57600080fd5b610092610473565b60405160208082528190810183818151815260200191508051906020019060200280838360005b838110156100d25780820151818401525b6020016100b9565b505050509050019250505060405180910390f35b34156100f157600080fd5b6100fc6004356104d3565b60405190815260200160405180910390f35b341561011957600080fd5b6101246004356104f6565b604051600160a060020a0396871681529486166020860152604080860194909452919094166060840152608083019390935291151560a082015260c001905180910390f35b61006b600160a060020a03600435811690602435906044351660643561053d565b604051901515815260200160405180910390f35b60006101a861099b565b600083815260208190526040908190209060c0905190810160409081528254600160a060020a039081168352600184015481166020840190815260028501549284019290925260038401541660608301526004830154608083015260059092015460ff16151560a0820152915060009051600160a060020a031614156102f35733600160a060020a03166108fc82604001519081150290604051600060405180830381858888f19350505050151561025f57600080fd5b8060600151600160a060020a03166323b872dd338351846080015160006040516020015260405160e060020a63ffffffff8616028152600160a060020a0393841660048201529190921660248201526044810191909152606401602060405180830381600087803b15156102d257600080fd5b6102c65a03f115156102e357600080fd5b50505060405180519050506103d0565b60006060820151600160a060020a031614156103d0578051600160a060020a03166108fc82608001519081150290604051600060405180830381858888f19350505050151561034157600080fd5b8060200151600160a060020a03166323b872dd825133846040015160006040516020015260405160e060020a63ffffffff8616028152600160a060020a0393841660048201529190921660248201526044810191909152606401602060405180830381600087803b15156103b457600080fd5b6102c65a03f115156103c557600080fd5b505050604051805150505b5b6000838152602081905260409020600501805460ff191660011790557f9a1421e25c7471f70dc672f22aea188ba8d3ab35386ac1296fcb5e1c8dcbc1a38151338360200151846040015185606001518660800151604051600160a060020a03968716815294861660208601529285166040808601919091526060850192909252909316608083015260a082015260c001905180910390a1600191505b50919050565b61047b6109d0565b60018054806020026020016040519081016040528092919081815260200182805480156104c857602002820191906000526020600020905b815481526001909101906020018083116104b3575b505050505090505b90565b60018054829081106104e157fe5b906000526020600020900160005b5054905081565b600060208190529081526040902080546001820154600283015460038401546004850154600590950154600160a060020a0394851695938516949293919092169160ff1686565b6000808080861161054d57600080fd5b6000841161055a57600080fd5b600160a060020a038716151561058757600160a060020a033016318690101561058257600080fd5b610607565b8587600160a060020a03166370a082313360006040516020015260405160e060020a63ffffffff8416028152600160a060020a039091166004820152602401602060405180830381600087803b15156105df57600080fd5b6102c65a03f115156105f057600080fd5b505050604051805190501015151561060757600080fd5b5b84848888604051606060020a600160a060020a03958616810282526014820194909452919093169091026034820152604881019190915260680160405190819003902060008181526020819052604090206004015490925015801590610680575060008281526020819052604090206005015460ff16155b156106955761068e8261019e565b92506108ec565b86868686604051606060020a600160a060020a0395861681028252601482019490945291909316909102603482015260488101919091526068016040519081900390206000818152602081905260409020600401549092501580159061070d575060008281526020819052604090206005015460ff16155b1561077d5761068e606060405190810160405280603981526020017f4964656e746963616c206f7264657220697320616c72656164792061637469768152602001603860020a78652c2045786368616e67652e7375626d69744f726465722829028152506108f7565b92506108ec565b6001805480820161078e83826109e2565b916000526020600020900160005b508390555060c06040519081016040908152600160a060020a0333811683528981166020808501919091528284018a9052908816606084015260808301879052600060a08401819052858152908190522081518154600160a060020a031916600160a060020a03919091161781556020820151600182018054600160a060020a031916600160a060020a0392909216919091179055604082015181600201556060820151600382018054600160a060020a031916600160a060020a03929092169190911790556080820151816004015560a0820151600591909101805460ff1916911515919091179055507f2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d3388888888604051600160a060020a039586168152938516602085015260408085019390935293166060830152608082019290925260a001905180910390a1600192505b5b5050949350505050565b60007f551303dd5f39cbfe6daba6b3e27754b8a7d72f519756a2cde2b92c2bbde159a78260405160208082528190810183818151815260200191508051906020019080838360005b838110156109585780820151818401525b60200161093f565b50505050905090810190601f1680156109855780820380516001836020036101000a031916815260200191505b509250505060405180910390a15060005b919050565b60c06040519081016040908152600080835260208301819052908201819052606082018190526080820181905260a082015290565b60206040519081016040526000815290565b815481835581811511610a0657600083815260209020610a06918101908301610a0c565b5b505050565b6104d091905b80821115610a265760008155600101610a12565b5090565b905600a165627a7a72305820859fe52bbf11d9cdbbbcdcb652b2245399ba7904a60bb45670f532b0a25373830029",
   "networks": {
+    "42": {
+      "events": {
+        "0x2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderSubmitted",
+          "type": "event"
+        },
+        "0x9a1421e25c7471f70dc672f22aea188ba8d3ab35386ac1296fcb5e1c8dcbc1a3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderExecuted",
+          "type": "event"
+        },
+        "0x551303dd5f39cbfe6daba6b3e27754b8a7d72f519756a2cde2b92c2bbde159a7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "errorString",
+              "type": "string"
+            }
+          ],
+          "name": "LogErrorString",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x67b00d14e890040390639cf908f4a9dd1be86406",
+      "updated_at": 1505576929661
+    },
     "1504806351281": {
       "events": {
         "0x2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d": {
@@ -733,8 +821,360 @@
       "links": {},
       "address": "0x7d525093f383e7e2a16f8bab6f7d48e2f217075b",
       "updated_at": 1505407342584
+    },
+    "1505495332808": {
+      "events": {
+        "0x2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderSubmitted",
+          "type": "event"
+        },
+        "0x9a1421e25c7471f70dc672f22aea188ba8d3ab35386ac1296fcb5e1c8dcbc1a3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderExecuted",
+          "type": "event"
+        },
+        "0x551303dd5f39cbfe6daba6b3e27754b8a7d72f519756a2cde2b92c2bbde159a7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "errorString",
+              "type": "string"
+            }
+          ],
+          "name": "LogErrorString",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x00538f5603564461cf874ae90b5744831ef19c3a",
+      "updated_at": 1505496151444
+    },
+    "1505559944266": {
+      "events": {
+        "0x2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderSubmitted",
+          "type": "event"
+        },
+        "0x9a1421e25c7471f70dc672f22aea188ba8d3ab35386ac1296fcb5e1c8dcbc1a3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderExecuted",
+          "type": "event"
+        },
+        "0x551303dd5f39cbfe6daba6b3e27754b8a7d72f519756a2cde2b92c2bbde159a7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "errorString",
+              "type": "string"
+            }
+          ],
+          "name": "LogErrorString",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x88a127ef18caef50ccb6bee22cfd5706b3235655",
+      "updated_at": 1505559955350
+    },
+    "1505562489127": {
+      "events": {
+        "0x2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderSubmitted",
+          "type": "event"
+        },
+        "0x9a1421e25c7471f70dc672f22aea188ba8d3ab35386ac1296fcb5e1c8dcbc1a3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderExecuted",
+          "type": "event"
+        },
+        "0x551303dd5f39cbfe6daba6b3e27754b8a7d72f519756a2cde2b92c2bbde159a7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "errorString",
+              "type": "string"
+            }
+          ],
+          "name": "LogErrorString",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x3bf7fbdc46f57014e109adf619e3c93a875e3f93",
+      "updated_at": 1505564805736
+    },
+    "1505568633202": {
+      "events": {
+        "0x2488a98af2c19a2f8be4fe1dfdd5a86048f4e5695c6d230f027aa9de0dd7af0d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderSubmitted",
+          "type": "event"
+        },
+        "0x9a1421e25c7471f70dc672f22aea188ba8d3ab35386ac1296fcb5e1c8dcbc1a3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "offerAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "wantToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "wantAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "logOrderExecuted",
+          "type": "event"
+        },
+        "0x551303dd5f39cbfe6daba6b3e27754b8a7d72f519756a2cde2b92c2bbde159a7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "errorString",
+              "type": "string"
+            }
+          ],
+          "name": "LogErrorString",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x11f215aa0d9017359af74c8e7796fedbd2d70045",
+      "updated_at": 1505575986832
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1505407342584
+  "updated_at": 1505576929661
 }

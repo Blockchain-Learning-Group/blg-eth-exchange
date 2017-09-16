@@ -8,9 +8,7 @@ def deploy_verification_ui():
     """
     UI_PATH = '../app/client/'
     ipfs_api = ipfsapi.connect('https://ipfs.infura.io', 5001)
-
     website_hash = ipfs_api.add(UI_PATH)[-1]['Hash']
-    # component_data = ipfs_api.add(UI_PATH)
 
     return website_hash
 

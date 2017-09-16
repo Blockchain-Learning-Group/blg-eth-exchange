@@ -8,7 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Exchange</title>
+    <title>BLG Exchange</title>
+
+    <link rel="shortcut icon" type="image/png" href="img/blg_favicon.png"/>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,6 +53,12 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" id="etherBalance"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" id="blgBalance"></a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#">Community Hub</a>
             </li>
             <li class="nav-item">
@@ -66,17 +74,24 @@
         <div class="row h-100">
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
-              <h1 class="mb-5">BLG Decentralized Exchange Template</h1>
+              <h1 class="mb-5">BLG Decentralized Exchange</h1>
               <p>
                 <strong>
-                  This is a template to build your own decentralized exchange.
+                  Want to build one of your own?
+                </br>
+
+                  Sign-up for our
+                  <a href="https://www.blockchainlearninggroup.com/dapp-development-fundamentals">
+                    DApp development course
+                  </a>
+                  today!
                 </strong>
 
+              </br>
               </br>
 
               </p>
               <a href="#exchange" class="btn btn-outline btn-xl js-scroll-trigger">Place an Order!</a>
-
             </div>
           </div>
 
@@ -85,8 +100,7 @@
               <div>
                 <div class="device">
                   <div class="screen">
-                    YOUR IMAGE HERE.
-                    <!-- <img src="img/community-hub.png" class="img-fluid" alt="" height="500px"> -->
+                    <img src="img/community-hub.png" class="img-fluid" alt="" height="500px">
                   </div>
                 </div>
               </div>
@@ -104,6 +118,11 @@
             <h2 class="section-heading">Place an Order!</h2>
             <p>Submit an order to the decentralized exchange.</p>
             <p>Supported pairings include: BLG / ETH.</p>
+            <p>Earn BLG tokens by contributing resources to the community
+              <a href="#contribute">
+                below.
+              </a>
+            </p>
 
             <form class="form-inline" id="submitOrderForm">
                 <label class="sr-only" for="inlineFormInputGroup">Offer Token</label>
@@ -195,7 +214,8 @@
         <div class="row">
           <div class="col-md-8 mx-auto">
             <h2 class="section-heading">Contribute to the BLG Community!</h2>
-            <p>Share a useful develop resource.</p>
+            <p>Share a useful developer resource and earn BLG tokens.</p>
+            <i>Note you must first be added to the community by BLG.  Get in touch below to find out more.</i>
 
             <form class="form-inline" id="addResourceForm">
                 <label class="sr-only" for="inlineFormInputGroup">Resource URL</label>
@@ -232,6 +252,12 @@
             </a>
           </li>
         </ul>
+
+        </br>
+
+        <p>adam@blockchainlearninggroup.com</p>
+        <p>murtaza@blockchainlearninggroup.com</p>
+
       </div>
     </section>
 
@@ -282,12 +308,10 @@
       </div>
       <div class="modal-body">
         <p>
-          <strong>Thank you for your contribution!</strong>
+          <strong>Thank you!</strong>
           </br>
-          Here is your transction hash:
         </p>
         <p id="txHash"></p>
-        <p>View your transaction and all other resources at the <a href="#" >BLG community hub.</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
