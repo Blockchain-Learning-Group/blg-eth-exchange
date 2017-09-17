@@ -15,6 +15,7 @@ def deploy_verification_ui():
 if __name__ == '__main__':
     new_hash = deploy_verification_ui()
     landing_page = 'home.html'
+    
     print('\n\n' + '*'*34)
     print('* Success, App deployed to IPFS! *')
     print('*'*34)

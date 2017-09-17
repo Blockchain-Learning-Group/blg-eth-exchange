@@ -33,9 +33,11 @@
     <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+    <!-- web3 -->
+    <script src="vendor/web3.min.js"></script>
+
     <!-- Custom scripts for this template -->
     <script src="js/hub.min.js"></script>
-    <script src="js/web3.min.js"></script>
     <script src="js/initEther.js"></script> <!-- NOTE link this prior to home so web3 is loaded -->
     <script src="js/home.js"></script>
   </head>
@@ -69,6 +71,7 @@
       </div>
     </nav>
 
+    <!-- Main landing page -->
     <header class="masthead">
       <div class="container h-100">
         <div class="row h-100">
@@ -110,7 +113,9 @@
         </div>
       </div>
     </header>
+    <!-- END Main landing page -->
 
+    <!-- Exchange Order Creation -->
     <section class="exchange bg-primary text-center" id="exchange">
       <div class="container">
         <div class="row" style="text-align: center;">
@@ -124,6 +129,7 @@
               </a>
             </p>
 
+            <!-- Input order form -->
             <form class="form-inline" id="submitOrderForm">
                 <label class="sr-only" for="inlineFormInputGroup">Offer Token</label>
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width:100%">
@@ -160,9 +166,11 @@
 
           </div>
         </div>
-      </div> <!-- Constainer -->
+      </div>
     </section>
+    <!-- END Exchange Order Creation -->
 
+    <!-- Exchange Order Book -->
     <section>
       <div class="container">
         <h1 style="text-align: center">Order Book</h1>
@@ -180,34 +188,11 @@
             </tr>
           </thead>
         </table>
-
-        </br>
-
-        <!-- TODO -->
-        <!-- <h2>Filled Orders</h2>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Offer Token</th>
-              <th>Offer Amount</th>
-              <th>Want Token</th>
-              <th>Want Amount</th>
-              <th>Maker</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-            </tr>
-          </tbody>
-        </table> -->
       </div>
     </section>
+    <!-- END Exchange Order Book -->
 
+    <!-- Hub Contribution -->
     <section class="contribute bg-primary text-center" id="contribute">
       <div class="container">
 
@@ -231,7 +216,9 @@
         </div>
       </div>
     </section>
+    <!-- END Hub Contribution -->
 
+    <!-- Contact -->
     <section class="contact bg-primary" id="contact">
       <div class="container">
         <h2>BLG Community Support!</h2>
@@ -260,6 +247,7 @@
 
       </div>
     </section>
+    <!-- END Contact -->
 
     <footer>
       <div class="container">

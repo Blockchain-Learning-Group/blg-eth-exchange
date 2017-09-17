@@ -1,3 +1,8 @@
+/*
+ Core UI logic.
+ Submit order and resource.
+ */
+
 $(document).ready(() => {
   // Add a resource to the blg hub
   $('#submitResource').click(e => {

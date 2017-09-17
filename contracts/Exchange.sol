@@ -47,14 +47,6 @@ contract Exchange is LoggingErrors {
   );
 
   /**
-   * @dev Constructor. Increment order book to enable 0 address as existence check.
-   * Therefore may check if an ids index is 0 to confirm it does not exist
-   */
-  /*function Exchange() {
-    orderBook_.length = 1;
-  }*/
-
-  /**
    * @dev Fallback.  Enable This contract to be sent ether.
    */
   function () payable { }
@@ -140,7 +132,7 @@ contract Exchange is LoggingErrors {
   }
 
   /**
-   * Public
+   * Private
    */
 
   /**
@@ -150,7 +142,7 @@ contract Exchange is LoggingErrors {
    */
   function executeOrder(
     bytes32 _orderId
-  ) public
+  ) private
     returns(bool)
   {
     // Load into mem to save gas on read operations

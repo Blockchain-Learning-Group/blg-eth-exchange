@@ -1,5 +1,11 @@
-// Exchange and blgToken contract data
-const exchangeAddress = '0x67b00d14e890040390639cf908f4a9dd1be86406'
+/*
+ Initialize web3 instances of blg token, hub and exchange contracts.
+ Load all relevant accounts, balances, orders.
+ NOTE web3 globally available as linked in in home.html
+ */
+
+// Exchange, blgToken, hub contract data
+const exchangeAddress = '0x9ec0d5ec757bc14699fd9e7ddf97dde405e7c1c5'
 const exchangeJSON = {
   "contract_name": "Exchange",
   "abi": [
@@ -1093,7 +1099,7 @@ const exchangeJSON = {
   "updated_at": 1505575986832
 }
 
-const blgTokenAddress = '0x8b78e231ee2d5551b215f9a482413f69db558c38'
+const blgTokenAddress = '0xfec1266f7e026363be4a7b0d10df790bbd92bff4'
 const blgTokenJSON = {
   "contract_name": "BLG",
   "abi": [
@@ -1784,7 +1790,7 @@ const blgTokenJSON = {
   "updated_at": 1505575663848
 }
 
-const hubAddress = '0x848efcfd7c4931d8a2fbd40528b0279f4c6a2223'
+const hubAddress = '0x4519b80e842c4e8a9538997c39550dc724c28427'
 const hubJSON = {
   "contract_name": "Hub",
   "abi": [
@@ -2377,6 +2383,7 @@ const hubJSON = {
 }
 
 $(document).ready(() => {
+  // Approved tokens to trade on the exchange, mapping symbol <> address
   window.approvedTokens = {
     'ETH': '0x0000000000000000000000000000000000000000',
     'BLG': blgTokenAddress
@@ -2384,11 +2391,11 @@ $(document).ready(() => {
 
   window.tokenAddressToSymbol = {
     '0x0000000000000000000000000000000000000000': 'ETH',
-    '0x8b78e231ee2d5551b215f9a482413f69db558c38': 'BLG'
+    '0xfec1266f7e026363be4a7b0d10df790bbd92bff4': 'BLG'
   }
 
   if (window.web3) {
-    const web3 = new Web3(window.web3.currentProvider)
+    const web3 = new Web3(window.web3.currentProvider) // Metamask
 
     // Load metamask accounts
     web3.eth.getAccounts((err, accounts) => {
@@ -2401,18 +2408,19 @@ $(document).ready(() => {
       } else {
         window.defaultAccount = accounts[0]
 
-        // Create instance of the exchange and blg token
+        // Create instance of the exchange, blg token and hub
         window.exchange = web3.eth.contract(exchangeJSON.abi).at(exchangeAddress)
         window.blgToken = web3.eth.contract(blgTokenJSON.abi).at(blgTokenAddress)
         window.hub = web3.eth.contract(hubJSON.abi).at(hubAddress)
 
+        // Create relevant listeners for all contracts
         initExchangeListeners()
         initBLGTokenListeners()
         initHubListeners()
 
+        // Load balances for the user as well as the order book contents
         updateETHBalance(window.defaultAccount)
         updateBLGTokenBalance(window.defaultAccount)
-
         loadOrderBook()
       }
     })
@@ -2437,7 +2445,7 @@ function appendOrder(maker, offerToken, offerAmount, wantToken, wantAmount) {
   let offerAmountAdjusted = offerAmount
   let wantAmountAdjusted = wantAmount
 
-  // Convert eth amount
+  // Convert eth amount from wei
   if (offerSymbol === 'ETH') {
     offerAmountAdjusted = offerAmount / 10**18
   } else if (wantSymbol === 'ETH') {
@@ -2459,7 +2467,38 @@ function appendOrder(maker, offerToken, offerAmount, wantToken, wantAmount) {
 }
 
 /**
- * Create listeners for the exchange contract.s
+ * Create listeners for the BLG token.
+ */
+function initBLGTokenListeners() {
+  // Tokens minted. Will be the result of submitting a resource to the hub.
+  window.blgToken.LogTokensMinted({ from: 'latest', to: 'latest' }).watch((err, res) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(res)
+      openTransactionSuccessModal('BLG tokens minted.', res.transactionHash)
+
+      // If tokens minted to user update their balance
+      if (res.args.to == window.defaultAccount) {
+        updateETHBalance(window.defaultAccount)
+        updateBLGTokenBalance(window.defaultAccount)
+      }
+    }
+  })
+
+  // Error event
+  window.blgToken.LogErrorString({ from: 'latest', to: 'latest' }).watch((err, res) => {
+    if (err) {
+      console.log(err)
+    } else {
+      updateETHBalance(window.defaultAccount)
+      alert('Error! \n' + res.args.errorString)
+    }
+  })
+}
+
+/**
+ * Create listeners for the exchange contract.
  */
 function initExchangeListeners() {
   // Listen for all exchange events
@@ -2511,36 +2550,8 @@ function initExchangeListeners() {
 }
 
 /**
- * Create listeners for the BLG token.
- */
-function initBLGTokenListeners() {
-  window.blgToken.LogTokensMinted({ from: 'latest', to: 'latest' }).watch((err, res) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(res)
-      openTransactionSuccessModal('BLG tokens minted.', res.transactionHash)
-
-      // If tokens minted to user update their balance
-      if (res.args.to == window.defaultAccount) {
-        updateETHBalance(window.defaultAccount)
-        updateBLGTokenBalance(window.defaultAccount)
-      }
-    }
-  })
-
-  window.blgToken.LogErrorString({ from: 'latest', to: 'latest' }).watch((err, res) => {
-    if (err) {
-      console.log(err)
-    } else {
-      updateETHBalance(window.defaultAccount)
-      alert('Error! \n' + res.args.errorString)
-    }
-  })
-}
-
-/**
  * Create listeners for the BLG hub.
+ * Only listen for error string for user debugging.
  */
 function initHubListeners() {
   window.hub.LogErrorString({ from: 'latest', to: 'latest' }).watch((err, res) => {
@@ -2553,12 +2564,11 @@ function initHubListeners() {
 }
 
 /**
- * Load the contents of the order book
+ * Load the contents of the order book.
  */
 function loadOrderBook() {
-  // Load the order book
   window.exchange.getOrderBookIds.call((error, ids) => {
-    // Get order data and load
+    // Get order data and load for each returned id
     for (let i = 0; i < ids.length; i++) {
       window.exchange.orderBook_.call(ids[i], (err, order) => {
         // If the order is not filled then append
@@ -2584,31 +2594,30 @@ function openTransactionSuccessModal(msg, tx) {
 }
 
 /**
- * Update the the default account's ether balance.
- * @param  {String} user The EOA address.
- */
-function updateETHBalance(user) {
-  // Ether balance
-  web3.eth.getBalance(user, (err, balance) => {
-    if (err) {
-      console.error(err)
-    } else {
-      $('#etherBalance').text(balance.toNumber() / 10**18 + ' ETH') // convert wei to eth
-    }
-  })
-}
-
-/**
  * Update the default account's blg token balance.
  * @param  {String} user The EOA address.
  */
 function updateBLGTokenBalance(user) {
-  // BLG balance
   window.blgToken.balanceOf(user, (err, balance) => {
     if (err) {
       console.error(err)
     } else {
       $('#blgBalance').text(balance.toNumber() + ' BLG') // convert wei to eth
+    }
+  })
+}
+
+/**
+ * Update the the default account's ether balance.
+ * @param  {String} user The EOA address.
+ */
+function updateETHBalance(user) {
+  console.log(user)
+  web3.eth.getBalance(user, (err, balance) => {
+    if (err) {
+      console.error(err)
+    } else {
+      $('#etherBalance').text(balance.toNumber() / 10**18 + ' ETH') // convert wei to eth
     }
   })
 }
