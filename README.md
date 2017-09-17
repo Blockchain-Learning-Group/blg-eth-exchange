@@ -7,7 +7,7 @@ A decentralized example to enable ETH / BLG trading as well as BLG token generat
 2. Clone Me :)
 ```
 $ cd /fav_dir/
-$ git@github.com:Blockchain-Learning-Group/blg-eth-exchange.git
+$ git clone git@github.com:Blockchain-Learning-Group/blg-eth-exchange.git
 $ cd blg-eth-exchange
 ```
 
