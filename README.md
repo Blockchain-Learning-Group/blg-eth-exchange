@@ -6,7 +6,7 @@ __[BLG Live Exchange - Kovan](https://ipfs.io/ipfs/QmWHnpKds9JUKPwPsPdqQZVwep2dL
 _Connect Metamask to Kovan network in order to view live order book and connect to deployed contracts._
 
 
-## DApp Developmnet Fundamentals Quick Start
+## DApp Development Fundamentals Quick Start
 
 1. Install and Configure [Metamask Chrome Extension](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
 
