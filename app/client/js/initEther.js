@@ -2612,7 +2612,6 @@ function updateBLGTokenBalance(user) {
  * @param  {String} user The EOA address.
  */
 function updateETHBalance(user) {
-  console.log(user)
   web3.eth.getBalance(user, (err, balance) => {
     if (err) {
       console.error(err)
